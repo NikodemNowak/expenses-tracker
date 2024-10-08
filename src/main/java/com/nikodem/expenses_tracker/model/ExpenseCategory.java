@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Data
 @EqualsAndHashCode(callSuper = true)
-@Table(name = "ExpenseCategory")
+@Table(name = "expensecategories")
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExpenseCategory extends AbstractEntity{

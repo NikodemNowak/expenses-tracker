@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
 
 @Component
 public class DemoDataGenerator implements CommandLineRunner {
@@ -37,7 +38,9 @@ public class DemoDataGenerator implements CommandLineRunner {
         expenseCategoryRepository.save(groceries);
         expenseCategoryRepository.save(clothes);
         MonthlyFinance monthlyFinance = new MonthlyFinance(alex, Month.JULY, 2024, BigDecimal.valueOf(4500));
+        MonthlyFinance monthlyFinance1 = new MonthlyFinance(alex, Month.AUGUST, 2024, BigDecimal.valueOf(2000));
         monthlyFinanceRepository.save(monthlyFinance);
+        monthlyFinanceRepository.save(monthlyFinance1);
         expenseRepository.save(new Expense("Groceries", "Lidl shopping", BigDecimal.valueOf(120.99), groceries, LocalDate.parse("2024-07-19"), monthlyFinance));
         expenseRepository.save(new Expense("Shoes", "Nike Jordan 1 High", BigDecimal.valueOf(799), clothes, LocalDate.parse("2024-07-19"), monthlyFinance));
     }

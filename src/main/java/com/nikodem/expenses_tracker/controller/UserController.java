@@ -1,11 +1,11 @@
 package com.nikodem.expenses_tracker.controller;
 
+import com.nikodem.expenses_tracker.ApiMessage;
 import com.nikodem.expenses_tracker.dto.PatchUserDTO;
 import com.nikodem.expenses_tracker.dto.PostUserDTO;
 import com.nikodem.expenses_tracker.dto.UserDTO;
 import com.nikodem.expenses_tracker.service.UserService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,6 @@ import java.util.UUID;
 public class UserController {
     private final UserService userService;
 
-    @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -45,8 +44,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String userId) {
+    public ResponseEntity<ApiMessage> deleteUser(@PathVariable String userId) {
         userService.setUserExpired(UUID.fromString(userId));
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(new ApiMessage("User successfully deleted"));
     }
 }

@@ -18,7 +18,4 @@ public class PatchExpenseDTO {
     private String categoryName;
     @ConditionalNotEmpty
     private String expenseDate;
-    @ConditionalNotEmpty
-    private String monthlyFinanceId;
-    // TODO: delete and change monthly finance based on expense date
 }

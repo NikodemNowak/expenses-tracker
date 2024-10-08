@@ -1,6 +1,5 @@
 package com.nikodem.expenses_tracker.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -16,6 +15,5 @@ abstract class AbstractEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @JsonIgnore
     private Boolean expired = false;
 }

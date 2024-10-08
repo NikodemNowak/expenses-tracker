@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Expense")
+@Table(name = "expenses")
 @Data
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -28,12 +28,11 @@ public class Expense extends AbstractEntity {
     private BigDecimal amount;
 
     @ManyToOne
-    @JoinColumn(name = "ExpenseCategory")
+    @JoinColumn(name = "expensecategories")
     private ExpenseCategory category;
 
     private LocalDate expenseDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonManagedReference
     private MonthlyFinance monthlyFinance;
 }

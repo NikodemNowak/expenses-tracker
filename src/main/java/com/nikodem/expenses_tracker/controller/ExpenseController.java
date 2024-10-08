@@ -1,17 +1,17 @@
 package com.nikodem.expenses_tracker.controller;
 
+import com.nikodem.expenses_tracker.ApiMessage;
 import com.nikodem.expenses_tracker.dto.ExpenseDTO;
 import com.nikodem.expenses_tracker.dto.PatchExpenseDTO;
 import com.nikodem.expenses_tracker.dto.PostExpenseDTO;
 import com.nikodem.expenses_tracker.service.ExpenseService;
 import jakarta.validation.Valid;
-import org.hibernate.validator.constraints.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/api/expense")
@@ -19,7 +19,6 @@ public class ExpenseController {
 
     private final ExpenseService expenseService;
 
-    @Autowired
     public ExpenseController(ExpenseService expenseService) {
         this.expenseService = expenseService;
     }
@@ -27,12 +26,16 @@ public class ExpenseController {
     @GetMapping
     public ResponseEntity<List<ExpenseDTO>> getExpenses() {
         return ResponseEntity.ok(expenseService.findAll());
-        // TODO: add pagination (SUPER DANGEROUS REQUEST)
+        // TODO: add pagination
     }
 
     @GetMapping("/{expenseId}")
-    public ResponseEntity<ExpenseDTO> getExpenseById(@PathVariable @UUID String expenseId) {
-        return ResponseEntity.ok(expenseService.findById(java.util.UUID.fromString(expenseId)));
+    public ResponseEntity<ExpenseDTO> getExpense(
+            @PathVariable
+            @org.hibernate.validator.constraints.UUID
+            String expenseId
+    ) {
+        return ResponseEntity.ok(expenseService.findById(UUID.fromString(expenseId)));
     }
 
     @PostMapping
@@ -46,8 +49,12 @@ public class ExpenseController {
     }
 
     @DeleteMapping("/{expenseId}")
-    public ResponseEntity<Void> deleteExpense(@PathVariable @UUID String expenseId) {
-        expenseService.deleteExpense(java.util.UUID.fromString(expenseId));
-        return ResponseEntity.ok(null);
+    public ResponseEntity<ApiMessage> deleteExpense(
+            @PathVariable
+            @org.hibernate.validator.constraints.UUID
+            String expenseId
+    ) {
+        expenseService.deleteExpense(UUID.fromString(expenseId));
+        return ResponseEntity.ok(new ApiMessage("Expense successfully deleted"));
     }
 }
